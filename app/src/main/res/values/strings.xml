@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Currency Converter</string>
+    <string name="to">TO</string>
+    <string name="currency_converter">Currency Converter</string>
+    <string name="from">FROM</string>
+    <string name="currency_world">Currency World</string>
+    <string name="currency">Currency</string>
+    <string name="amount">Amount</string>
+    <string name="result">Result</string>
+    <string name="converted_amount">Converted Amount</string>
+    <string name="currency2">Currency</string>
+    <string name="convert">Convert</string>
+    <string name="icon1">icon1</string>
+    <string name="icon2">icon2</string>
+    <string name="globe_earth">globe_earth</string>
+
+</resources>
