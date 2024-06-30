@@ -75,20 +75,20 @@ class MainActivity : AppCompatActivity() {
             }
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://v6.exchangerate-api.com/v6/")
+                .baseUrl("https://v6.exchangerate-api.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
             val apiService = retrofit.create(ApiService::class.java)
 
             val call = apiService.getCurrencyConversion("c3852155f648f6ed278ace03", fromCurrency, toCurrency, amount)
-            call.enqueue(object : Callback<ResponseModel> {
-                override fun onResponse(call: Call<ResponseModel>, response: Response<ResponseModel>) {
+            call.enqueue(object : Callback<ConversionResponse> {
+                override fun onResponse(call: Call<ConversionResponse>, response: Response<ConversionResponse>) {
                     try {
                         if (response.isSuccessful) {
                             val data = response.body()
                             if (data != null) {
-                                val convertedAmount = data.conversion_result
+                                val convertedAmount = data.conversionResult
                                 binding.convertedcurrency.text = convertedAmount.toString()
                             } else {
                                 Toast.makeText(this@MainActivity, "Response body is null", Toast.LENGTH_SHORT).show()
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
+                override fun onFailure(call: Call<ConversionResponse>, t: Throwable) {
                     Toast.makeText(this@MainActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
