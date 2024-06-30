@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var fromSpinner: Spinner
     private lateinit var toSpinner: Spinner
+
     private lateinit var binding: ActivityMainBinding
 
     private val currencySymbols = arrayOf(
@@ -55,60 +56,59 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun convertCurrency() {
-        val fromCurrency = fromSpinner.selectedItem.toString().split(" - ")[1]
-        val toCurrency = toSpinner.selectedItem.toString().split(" - ")[1]
-        val amountStr = binding.inputamount.text.toString()
+        try {
+            val fromCurrency = fromSpinner.selectedItem.toString().split(" - ")[1]
+            val toCurrency = toSpinner.selectedItem.toString().split(" - ")[1]
+            val amountStr = binding.inputamount.text.toString()
 
-        if (amountStr.isBlank()) {
-            Toast.makeText(this, "Please enter an amount", Toast.LENGTH_SHORT).show()
-            return
-        }
+            if (amountStr.isBlank()) {
+                Toast.makeText(this, "Please enter an amount", Toast.LENGTH_SHORT).show()
+                return
+            }
 
-        val amount = amountStr.toDouble()
+            val amount: Double
+            try {
+                amount = amountStr.toDouble()
+            } catch (e: NumberFormatException) {
+                Toast.makeText(this, "Invalid amount. Please enter a valid number", Toast.LENGTH_SHORT).show()
+                return
+            }
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://v6.exchangerate-api.com") // Replace with your actual base URL
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://v6.exchangerate-api.com/v6/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
 
-        val apiService = retrofit.create(ApiService::class.java)
+            val apiService = retrofit.create(ApiService::class.java)
 
-        val call = apiService.getCurrencyConversion("c3852155f648f6ed278ace03", fromCurrency , toCurrency)
-        call.enqueue(object : Callback<ResponseModel> {
-            override fun onResponse(
-                call: Call<ResponseModel>,
-                response: Response<ResponseModel>
-            ) {
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    if (data != null) {
-                        val exchangeRate = data.conversion_rate
-                        val convertedAmount = exchangeRate * amount
-                        binding.convertedcurrency.text = convertedAmount.toString()
-                    } else {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "Response body is null",
-                            Toast.LENGTH_SHORT
-                        ).show()
+            val call = apiService.getCurrencyConversion("c3852155f648f6ed278ace03", fromCurrency, toCurrency, amount)
+            call.enqueue(object : Callback<ResponseModel> {
+                override fun onResponse(call: Call<ResponseModel>, response: Response<ResponseModel>) {
+                    try {
+                        if (response.isSuccessful) {
+                            val data = response.body()
+                            if (data != null) {
+                                val convertedAmount = data.conversion_result
+                                binding.convertedcurrency.text = convertedAmount.toString()
+                            } else {
+                                Toast.makeText(this@MainActivity, "Response body is null", Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
+                            Toast.makeText(
+                                this@MainActivity, "Failed to fetch data: ${response.code()} - ${response.message()}", Toast.LENGTH_SHORT).show()
+                        }
+                    } catch (e: Exception) {
+                        Toast.makeText(this@MainActivity, "Error processing response: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
-                } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Failed to fetch data",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
-            }
 
-            override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error: ${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
+                override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
+                    Toast.makeText(this@MainActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } catch (e: Exception) {
+            Toast.makeText(this, "An unexpected error occurred: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupSpinners() {

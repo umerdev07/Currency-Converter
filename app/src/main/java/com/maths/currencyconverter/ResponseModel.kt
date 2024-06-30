@@ -1,11 +1,12 @@
 package com.maths.currencyconverter
 
 data class ResponseModel(
+    val base_code: String,
     val conversion_rate: Double,
+    val conversion_result: Double,
     val documentation: String,
     val result: String,
-    val to: String,
-    val from: String,
+    val target_code: String,
     val terms_of_use: String,
     val time_last_update_unix: Int,
     val time_last_update_utc: String,
