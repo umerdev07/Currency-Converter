@@ -3,6 +3,7 @@
     <string name="to">TO</string>
     <string name="currency_converter">Currency Converter</string>
     <string name="from">FROM</string>
+    <string name="currencytag"/>
     <string name="currency_world">Currency World</string>
     <string name="currency">Currency</string>
     <string name="amount">Amount</string>
@@ -13,5 +14,7 @@
     <string name="icon1">icon1</string>
     <string name="icon2">icon2</string>
     <string name="globe_earth">globe_earth</string>
+    <string name="select_country">Select Country</string>
+    <string name="select_country2">Select Country</string>
 
 </resources>

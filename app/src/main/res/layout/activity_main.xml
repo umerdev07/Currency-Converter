@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="1dp"
     android:background="#FDF1F1"
+    app:constraint_referenced_tags="@string/currencytag"
     tools:context=".MainActivity">
 
     <TextView
@@ -23,16 +24,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextSizeCheck" />
 
-    <Spinner
+    <TextView
         android:id="@+id/toSpinner"
         android:layout_width="330dp"
         android:layout_height="70dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/round"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.32"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center_vertical"
+        android:textSize="18sp"
+        android:hint="@string/select_country2"
+        android:padding="12dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/fromSpinner"
+        app:layout_constraintHorizontal_bias="0.416"
+        app:layout_constraintStart_toStartOf="@+id/fromSpinner"
         app:layout_constraintTop_toBottomOf="@+id/fromSpinner" />
 
     <TextView
@@ -51,6 +56,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.4"
         tools:ignore="RtlHardcoded,TextSizeCheck" />
 
     <EditText
@@ -60,11 +66,11 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/round"
+        android:gravity="left|center_vertical"
         android:hint="@string/amount"
         android:inputType="numberDecimal"
         android:padding="10dp"
         android:textColorHint="@color/black"
-        android:gravity="left|center_vertical"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/fromcurrency"
@@ -73,15 +79,19 @@
         app:layout_constraintTop_toBottomOf="@+id/fromcurrency"
         tools:ignore="RtlHardcoded" />
 
-    <Spinner
+    <TextView
         android:id="@+id/fromSpinner"
         android:layout_width="330dp"
         android:layout_height="70dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="56dp"
         android:background="@drawable/round"
-        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:hint="@string/select_country"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.345"
+        app:layout_constraintHorizontal_bias="0.329"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -89,9 +99,10 @@
         android:id="@+id/to"
         android:layout_width="82dp"
         android:layout_height="41dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="12dp"
         android:gravity="left"
         android:padding="6dp"
+        android:tag="@string/convert"
         android:text="@string/to"
         android:textColor="#000000"
         android:textSize="24sp"
@@ -101,20 +112,23 @@
         app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fromSpinner"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="RtlHardcoded,TextSizeCheck" />
 
     <TextView
         android:id="@+id/fromcurrency"
         android:layout_width="95dp"
         android:layout_height="31dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="12dp"
         android:padding="5dp"
+        android:tag="currency"
         android:text="@string/currency"
         android:textColor="@color/black"
         android:textSize="16sp"
+        android:gravity="center"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/toSpinner"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toSpinner"
         tools:ignore="TextSizeCheck" />
@@ -152,8 +166,8 @@
         android:layout_width="330dp"
         android:layout_height="70dp"
         android:layout_marginTop="48dp"
-        android:gravity="left|center_vertical"
         android:background="@drawable/round"
+        android:gravity="left|center_vertical"
         android:hint="@string/converted_amount"
         android:padding="10dp"
         android:textColorHint="@color/black"
@@ -186,17 +200,18 @@
         android:layout_width="101dp"
         android:layout_height="36dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginEnd="48dp"
         android:gravity="center"
         android:padding="5dp"
-
+        android:tag="currency"
         android:text="@string/currency"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:textStyle="normal"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/convertedcurrency"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/convertbutton"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="TextSizeCheck" />
 
     <Button
@@ -219,21 +234,19 @@
         android:id="@+id/icon1"
         android:layout_width="24dp"
         android:layout_height="27dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/banknotes"
         android:backgroundTint="#447E00"
         android:contentDescription="@string/icon1"
         app:layout_constraintBottom_toBottomOf="@+id/toSpinner"
         app:layout_constraintEnd_toEndOf="@+id/toSpinner"
-        app:layout_constraintTop_toTopOf="@+id/toSpinner"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/toSpinner" />
 
     <ImageView
         android:id="@+id/icon2"
         android:layout_width="24dp"
         android:layout_height="27dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/banknotes"
         android:backgroundTint="#447E00"
         android:contentDescription="@string/icon2"
