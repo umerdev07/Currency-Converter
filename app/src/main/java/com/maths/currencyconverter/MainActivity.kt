@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toCurrencyTextView: TextView
     private lateinit var binding: ActivityMainBinding
     private var dialog: Dialog? = null
+    val customMenu = CustomMenu()
 
     private val currencySymbols = arrayOf(
         "AFN (؋)", "ALL (L)", "DZD (د.ج)", "ARS ($)", "AUD ($)", "EUR (€)", "BDT (৳)", "EUR (€)",
@@ -73,6 +74,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.menue.setOnClickListener{
+            customMenu.customMenu(this , it)
+        }
+
         fromSpinner = binding.fromSpinner
         toSpinner = binding.toSpinner
         fromCurrencyTextView = binding.fromcurrency
@@ -111,7 +116,7 @@ class MainActivity : AppCompatActivity() {
 
             val apiService = retrofit.create(ApiService::class.java)
 
-            val call = apiService.getCurrencyConversion("c3852155f648f6ed278ace03", fromCurrency, toCurrency, amount)
+           val call = apiService.getCurrencyConversion("c3852155f648f6ed278ace03", fromCurrency, toCurrency, amount)
             call.enqueue(object : Callback<ConversionResponse> {
                 override fun onResponse(call: Call<ConversionResponse>, response: Response<ConversionResponse>) {
                     if (response.isSuccessful) {
