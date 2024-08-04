@@ -172,6 +172,7 @@
         android:padding="10dp"
         android:textColorHint="@color/black"
         android:textSize="20sp"
+        android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/tocurrency"
         app:layout_constraintHorizontal_bias="0.533"

@@ -15,22 +15,19 @@
         android:theme="@style/Theme.CurrencyConverter"
         tools:targetApi="31">
         <activity
-            android:name=".CryptoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".maincryptocurrency"
-            android:exported="false" />
-        <activity
-            android:name=".Crypto_tracker"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+
         </activity>
 
         <meta-data

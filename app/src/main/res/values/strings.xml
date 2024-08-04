@@ -20,5 +20,6 @@
     <string name="crypto_track">Crypto Track</string>
     <string name="full_foam">full_foam</string>
     <string name="price">price</string>
+    <string name="currency_conversion">Currency Conversion</string>
 
 </resources>
